@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="#" id="home" class="hidden"> Home | </a>
+    <a href="#" id="about"> About | </a>
+    <a href="#" id="blog"> Blog | </a>
+    <a href="#" id="contacts"> Contacts </a>
+
+    <div id="homeBlock">
+        Содержимое скрываемого блока Home
+    </div>
+    <div id="aboutBlock" class="hidden">
+        Содержимое скрываемого блока About
+    </div>
+    <div id="blogBlock" class="hidden">
+        Содержимое скрываемого блока Blog
+    </div>
+    <div id="contactsBlock" class="hidden">
+        Содержимое скрываемого блока Contacts
+    </div>
+
+    <script>
+        function toggleBlockVisibility(showBlockId, hideBlockIds) {
+            document.getElementById(showBlockId).classList.remove('hidden');
+            hideBlockIds.forEach((blockId) => {
+                document.getElementById(blockId).classList.add('hidden');
+            });
+        }
+
+        const links = document.querySelectorAll('a');
+        links.forEach((link) => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                const targetBlockId = link.id + 'Block';
+                const hideBlockIds = ['homeBlock', 'aboutBlock', 'contactsBlock', 'blogBlock'].filter(id => id !== targetBlockId);
+                toggleBlockVisibility(targetBlockId, hideBlockIds);
+                links.forEach((l) => {
+                    l.classList.remove('hidden');
+                });
+                link.classList.add('hidden');
+            });
+        });
+
+    </script>
+</body>
+
+</html>
